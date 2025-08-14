@@ -1,0 +1,215 @@
+{
+  "widgets": [
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 0,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "metrics": [
+          ["AWS/EC2", "CPUUtilization", "AutoScalingGroupName", "devops-webapp-asg"],
+          [".", "CPUCreditUsage", ".", "."],
+          [".", "CPUCreditBalance", ".", "."]
+        ],
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "ca-central-1",
+        "title": "EC2 CPU Metrics",
+        "period": 300,
+        "stat": "Average"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 12,
+      "y": 0,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "metrics": [
+          ["AWS/EC2", "NetworkIn", "AutoScalingGroupName", "devops-webapp-asg"],
+          [".", "NetworkOut", ".", "."],
+          [".", "NetworkPacketsIn", ".", "."],
+          [".", "NetworkPacketsOut", ".", "."]
+        ],
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "ca-central-1",
+        "title": "EC2 Network Metrics",
+        "period": 300,
+        "stat": "Average"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 6,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "metrics": [
+          ["AWS/EC2", "DiskReadBytes", "AutoScalingGroupName", "devops-webapp-asg"],
+          [".", "DiskWriteBytes", ".", "."],
+          [".", "DiskReadOps", ".", "."],
+          [".", "DiskWriteOps", ".", "."]
+        ],
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "ca-central-1",
+        "title": "EC2 Disk I/O Metrics",
+        "period": 300,
+        "stat": "Average"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 12,
+      "y": 6,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "metrics": [
+          ["AWS/ApplicationELB", "RequestCount", "LoadBalancer", "devops-webapp-alb"],
+          [".", "TargetResponseTime", ".", "."],
+          [".", "HTTPCode_Target_2XX_Count", ".", "."],
+          [".", "HTTPCode_Target_4XX_Count", ".", "."],
+          [".", "HTTPCode_Target_5XX_Count", ".", "."]
+        ],
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "ca-central-1",
+        "title": "Application Load Balancer Metrics",
+        "period": 300,
+        "stat": "Sum"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 12,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "metrics": [
+          ["AWS/AutoScaling", "GroupInServiceInstances", "AutoScalingGroupName", "devops-webapp-asg"],
+          [".", "GroupDesiredCapacity", ".", "."],
+          [".", "GroupMaxSize", ".", "."],
+          [".", "GroupMinSize", ".", "."]
+        ],
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "ca-central-1",
+        "title": "Auto Scaling Group Metrics",
+        "period": 300,
+        "stat": "Average"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 12,
+      "y": 12,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "metrics": [
+          ["AWS/ApplicationELB", "HealthyHostCount", "TargetGroup", "devops-webapp-tg"],
+          [".", "UnHealthyHostCount", ".", "."],
+          [".", "TargetConnectionErrorCount", ".", "."]
+        ],
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "ca-central-1",
+        "title": "Target Group Health Metrics",
+        "period": 300,
+        "stat": "Average"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 18,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "metrics": [
+          ["AWS/EC2", "StatusCheckFailed", "AutoScalingGroupName", "devops-webapp-asg"],
+          [".", "StatusCheckFailed_Instance", ".", "."],
+          [".", "StatusCheckFailed_System", ".", "."]
+        ],
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "ca-central-1",
+        "title": "EC2 Status Check Metrics",
+        "period": 300,
+        "stat": "Sum"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 12,
+      "y": 18,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "metrics": [
+          ["AWS/EC2", "MetadataNoToken", "AutoScalingGroupName", "devops-webapp-asg"],
+          [".", "MetadataHttpTokens", ".", "."]
+        ],
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "ca-central-1",
+        "title": "EC2 Metadata Metrics",
+        "period": 300,
+        "stat": "Sum"
+      }
+    },
+    {
+      "type": "log",
+      "x": 0,
+      "y": 24,
+      "width": 24,
+      "height": 6,
+      "properties": {
+        "query": "SOURCE '/ec2/devops-webapp/user-data'\n| fields @timestamp, @message\n| filter @message like /ERROR/ or @message like /WARN/ or @message like /FAILED/\n| sort @timestamp desc\n| limit 100",
+        "region": "ca-central-1",
+        "title": "Application Error Logs",
+        "view": "table"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 30,
+      "width": 24,
+      "height": 6,
+      "properties": {
+        "metrics": [
+          ["AWS/CloudWatch", "PutMetricData", "Namespace", "devops-webapp"],
+          [".", "GetMetricData", ".", "."],
+          [".", "GetMetricStatistics", ".", "."]
+        ],
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "ca-central-1",
+        "title": "CloudWatch API Metrics",
+        "period": 300,
+        "stat": "Sum"
+      }
+    },
+    {
+      "type": "alarm",
+      "x": 0,
+      "y": 36,
+      "width": 24,
+      "height": 6,
+      "properties": {
+        "title": "Active Alarms",
+        "alarms": [
+          "arn:aws:cloudwatch:ca-central-1:ACCOUNT_ID:alarm:devops-webapp-cpu-utilization-high",
+          "arn:aws:cloudwatch:ca-central-1:ACCOUNT_ID:alarm:devops-webapp-cpu-utilization-low"
+        ]
+      }
+    }
+  ]
+} 
